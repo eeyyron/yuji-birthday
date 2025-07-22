@@ -12,6 +12,12 @@
 
 <body>
 
+  <div id="start-overlay" class="start-overlay">
+  <div class="start-message">
+    <p>Tap to begin</p>
+  </div>
+  </div>
+  
   <!-- Loading Screen -->
   <div class="loading-screen" id="loader">
     <img src="./asset/hachi.png" alt="loading" class="loading-img">
@@ -31,43 +37,44 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
+document.getElementById('start-overlay').addEventListener('click', () => {
+  const overlay = document.getElementById('start-overlay');
+  overlay.classList.add('fade-out');
   setTimeout(() => {
-  document.getElementById('loader').style.display = 'none';
-  const fadeLayer = document.getElementById('fadeLayer');
-  fadeLayer.style.display = 'block';
+    overlay.remove();
 
-  const present = document.getElementById('present');
-  present.style.display = 'flex';
-  present.classList.add('reveal');
-  document.body.style.overflow = 'auto';
-
-  // Music
-  const music = document.getElementById('bg-music');
-  music.volume = 0.5;
-  music.play().catch(() => {
-    const btn = document.createElement('button');
-    btn.textContent = "🔊 Tap to Play Music";
-    btn.style = "margin-top: 20px; font-size: 1rem;";
-    btn.onclick = () => {
-      music.play();
-      btn.remove();
-    };
-    present.appendChild(btn);
-  });
-
-  // 🎉 Bigger Confetti
-  for (let i = 0; i < 3; i++) {
+    // Proceed with loading screen
     setTimeout(() => {
-      confetti({
-        particleCount: 200,
-        spread: 500,
-        startVelocity: 35,
-        scalar: 1.2,
-        origin: { y: 0.6 }
-      });
-    }, i * 400);
-  }
-}, 3000);
+      document.getElementById('loader').style.display = 'none';
+      const fadeLayer = document.getElementById('fadeLayer');
+      fadeLayer.style.display = 'block';
+
+      const present = document.getElementById('present');
+      present.style.display = 'flex';
+      present.classList.add('reveal');
+      document.body.style.overflow = 'auto';
+
+      // Music
+      const music = document.getElementById('bg-music');
+      music.volume = 0.5;
+      music.play();
+
+      // 🎉 Bigger Confetti
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          confetti({
+            particleCount: 200,
+            spread: 500,
+            startVelocity: 35,
+            scalar: 1.2,
+            origin: { y: 0.6 }
+          });
+        }, i * 400);
+      }
+
+    }, 3000); // after loading screen
+  }, 500); // fade-out transition
+});
 </script>
 
 </body>
