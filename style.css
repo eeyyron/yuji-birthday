@@ -1,0 +1,231 @@
+/* General page layout */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica;
+  background-color: #1e1e1e;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #1e1e1e;
+  border-bottom: 1px solid #2C2C2E;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 22px;
+  color: #fff;
+}
+
+.chat-header .sub {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 700px;
+  height: 90vh;
+  padding: 40px 24px; /* added horizontal margin */
+  padding-top: 80px; /* adjust for fixed header height */
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+/* Message wrapper */
+.message {
+  display: flex;
+  align-items: flex-start; /* Was: flex-end — this caused vertical stretching */
+  gap: 10px;
+}
+
+/* Jed (left, plain text) */
+.message.you {
+  justify-content: flex-start;
+  color: white;
+  font-size: 16px;
+  align-items: center;
+}
+
+/* Yuji (right, boxed bubble) */
+.message.me {
+  justify-content: flex-end;
+}
+
+/* Avatar for Jed */
+.avatar {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: url(/asset/avatar.png) no-repeat center/cover;
+  object-fit: cover;
+}
+
+/* Yuji bubble only */
+.message.me .bubble {
+  background-color: #2C2C2E;
+  padding: 10px 15px;
+  border-radius: 16px;
+  max-width: 80%;
+  white-space: pre-wrap;
+}
+
+/* Hide bubble outline for Jed */
+.message.you .bubble {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 16px;
+}
+
+/* Reply choice buttons */
+.choices {
+  position: sticky;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.choice-btn {
+  background-color: #3E3E41;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+  min-width: 200px;
+  text-align: center;
+}
+
+.choice-btn:hover {
+  background-color: #525256;
+}
+
+.bubble {
+  max-width: 80vw;
+  word-wrap: break-word;
+}
+
+.message .bubble {
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.typing {
+  background-color: #2C2C2E;
+  color: white;
+  border-radius: 16px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.4;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 25%;
+  position: relative;
+  margin-top: 4px;
+}
+
+.typing::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  margin-left: 6px;
+  animation: typingDots 1.2s infinite ease-in-out;
+  vertical-align: middle;
+}
+
+@keyframes typingDots {
+  0%, 100% {
+    box-shadow: 8px 0 #ccc, 16px 0 #2C2C2E;
+  }
+  50% {
+    box-shadow: 8px 0 #2C2C2E, 16px 0 #ccc;
+  }
+}
+
+.message.typing {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.message.typing .avatar {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  background-image: url('/asset/avatar.png');
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.message.typing .bubble {
+  background-color: #2a2a2a;
+  color: #ccc;
+  padding: 8px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+@media (max-width: 480px) {
+  .chat-container {
+    padding: 24px 16px; /* more breathing room on mobile */
+    padding-top: 70px;
+    gap: 36px;
+  }
+
+  .bubble {
+    font-size: 16px;
+  }
+
+  .choice-btn {
+    font-size: 16px;
+    padding: 10px 14px;
+  }
+
+  .typing {
+    background-color: #2C2C2E;
+    color: white;
+    border-radius: 16px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.4;
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 45%;
+    position: relative;
+    margin-top: 4px;
+  }
+}
